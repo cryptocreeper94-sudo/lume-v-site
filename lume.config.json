@@ -1,0 +1,14 @@
+{
+  "name": "lume-v-site",
+  "version": "1.0.0",
+  "target": "vite-react",
+  "buildCmd": "npm run build",
+  "publishDir": "dist",
+  "deterministic": true,
+  "safetyEnvelope": {
+    "shield": true,
+    "telemetry": true
+  },
+  "cortexBridge": "cortex-bridge.js",
+  "appId": "lume-v-marketing-ui"
+}
