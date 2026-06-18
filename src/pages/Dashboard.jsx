@@ -2,17 +2,26 @@ import React, { useState } from 'react';
 import { Shield, Key, Activity, Settings, Database, AlertTriangle, ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-const mockTelemetry = [
-  { time: '00:00', validations: 1200, blocked: 42 },
-  { time: '04:00', validations: 900, blocked: 31 },
-  { time: '08:00', validations: 2100, blocked: 89 },
-  { time: '12:00', validations: 4200, blocked: 210 },
-  { time: '16:00', validations: 3800, blocked: 185 },
-  { time: '20:00', validations: 2400, blocked: 95 },
-];
-
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('overview');
+  const [telemetryData, setTelemetryData] = React.useState([]);
+  const [totals, setTotals] = React.useState({ validations: 0, blocked: 0 });
+  const [apiKeys, setApiKeys] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('http://localhost:4000/v1/dashboard/telemetry')
+      .then(res => res.json())
+      .then(data => {
+        if(data.telemetry) setTelemetryData(data.telemetry);
+        if(data.totals) setTotals(data.totals);
+      }).catch(err => console.error(err));
+
+    fetch('http://localhost:4000/v1/dashboard/keys')
+      .then(res => res.json())
+      .then(data => {
+        if(data.keys) setApiKeys(data.keys);
+      }).catch(err => console.error(err));
+  }, []);
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-primary)' }}>
@@ -56,11 +65,11 @@ export default function Dashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
               <div className="glass-panel" style={{ padding: '1.5rem' }}>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Total Validations (24h)</div>
-                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>14,600</div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>{totals.validations.toLocaleString()}</div>
               </div>
               <div className="glass-panel" style={{ padding: '1.5rem' }}>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Invariants Blocked</div>
-                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: '#f43f5e' }}>652</div>
+                <div style={{ fontSize: '2.5rem', fontWeight: 800, color: '#f43f5e' }}>{totals.blocked.toLocaleString()}</div>
               </div>
               <div className="glass-panel" style={{ padding: '1.5rem' }}>
                 <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>Trust Confidence</div>
@@ -72,7 +81,7 @@ export default function Dashboard() {
             <div className="glass-panel" style={{ padding: '2rem', height: '400px', marginBottom: '3rem' }}>
               <h3 style={{ marginBottom: '2rem', color: 'var(--text-primary)' }}>Validation Volume vs. Threats Blocked</h3>
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={mockTelemetry}>
+                <LineChart data={telemetryData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                   <XAxis dataKey="time" stroke="var(--text-secondary)" />
                   <YAxis stroke="var(--text-secondary)" />
@@ -92,16 +101,19 @@ export default function Dashboard() {
               <button className="tier-button primary" style={{ width: 'auto', padding: '0.75rem 1.5rem' }}>Generate New Key</button>
             </div>
             
-            <div className="glass-panel" style={{ padding: '2rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
-                <div>
-                  <div style={{ fontWeight: 600, fontSize: '1.1rem', marginBottom: '0.25rem' }}>Production Wrapper Key</div>
-                  <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Created: May 31, 2026</div>
+            <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {apiKeys.length === 0 && <div style={{ color: 'var(--text-secondary)' }}>No active keys. Subscribe via Stripe to auto-provision.</div>}
+              {apiKeys.map(key => (
+                <div key={key.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
+                  <div>
+                    <div style={{ fontWeight: 600, fontSize: '1.1rem', marginBottom: '0.25rem' }}>Lume-V Access Key</div>
+                    <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Created: {new Date(key.createdAt).toLocaleDateString()}</div>
+                  </div>
+                  <div style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '8px', fontFamily: 'monospace', color: 'var(--text-accent)', letterSpacing: '0.05em' }}>
+                    {key.keyHash.substring(0, 16)}*****************
+                  </div>
                 </div>
-                <div style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '8px', fontFamily: 'monospace', color: 'var(--text-accent)', letterSpacing: '0.05em' }}>
-                  lumev_live_************************e9A
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         )}
