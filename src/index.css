@@ -269,7 +269,6 @@ img { max-width: 100%; display: block; }
   border-radius: var(--card-radius);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 350px;
   flex-shrink: 0;
   height: 100%;
 }
@@ -320,9 +319,11 @@ img { max-width: 100%; display: block; }
   scroll-snap-align: start;
   flex-shrink: 0;
   padding: 0 12px;
-  width: calc(100% / 3);
   display: flex;
 }
+.carousel-container.show-1 .carousel-item { width: 100%; }
+.carousel-container.show-2 .carousel-item { width: 50%; }
+.carousel-container.show-3 .carousel-item { width: calc(100% / 3); }
 .carousel-item > * {
   width: 100%;
 }
@@ -432,7 +433,6 @@ img { max-width: 100%; display: block; }
   border-radius: var(--card-radius);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  min-width: 350px;
   flex-shrink: 0;
   text-align: left;
   height: 100%;
@@ -545,7 +545,7 @@ img { max-width: 100%; display: block; }
   .section-split { grid-template-columns: 1fr; }
   .stats-bar { gap: 2rem; flex-wrap: wrap; }
   .hero-title { font-size: 3rem; }
-  .carousel-item { width: 50%; }
+  .carousel-container.show-3 .carousel-item { width: 50%; }
 }
 
 @media (max-width: 768px) {
@@ -556,5 +556,6 @@ img { max-width: 100%; display: block; }
   .hero-slideshow { min-height: 600px; }
   .section-title { font-size: 2rem; }
   .stats-bar { flex-direction: column; gap: 1.5rem; }
-  .carousel-item { width: 100%; }
+  .carousel-container.show-2 .carousel-item,
+  .carousel-container.show-3 .carousel-item { width: 100%; }
 }

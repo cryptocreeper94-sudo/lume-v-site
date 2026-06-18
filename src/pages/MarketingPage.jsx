@@ -94,7 +94,7 @@ export default function MarketingPage() {
             </p>
           </div>
           <div className="fade-in-up" style={{ transitionDelay: '0.2s' }}>
-            <Carousel cardWidth={400}>
+            <Carousel cardsToShow={1}>
               <div className="feature-card">
                 <img src="/images/problem_medical.png" alt="Medical Diagnostics" className="feature-card-image" />
                 <div className="feature-card-body">

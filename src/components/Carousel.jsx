@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function Carousel({ children, cardWidth = 400 }) {
+export default function Carousel({ children, cardWidth = 400, cardsToShow = 3 }) {
   const trackRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const childrenArray = React.Children.toArray(children);
@@ -46,7 +46,7 @@ export default function Carousel({ children, cardWidth = 400 }) {
   }, [childrenArray.length]);
 
   return (
-    <div className="carousel-container">
+    <div className={`carousel-container show-${cardsToShow}`}>
       <button className="carousel-arrow carousel-arrow-left" onClick={scrollLeft} aria-label="Scroll left">
         <ChevronLeft size={24} />
       </button>
