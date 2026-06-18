@@ -513,7 +513,9 @@ export default function MarketingPage() {
                     <li><CheckCircle2 size={16} color="var(--accent)" /> Dedicated Solutions Architect</li>
                     <li><CheckCircle2 size={16} color="var(--accent)" /> Custom SLA + 24/7 Support</li>
                   </ul>
-                  <button className="tier-button">Contact Sales</button>
+                  <a href="mailto:team@dwsc.io">
+                    <button className="tier-button">Contact Sales</button>
+                  </a>
                 </div>
               </div>
             </Carousel>
