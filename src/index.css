@@ -131,15 +131,17 @@ img { max-width: 100%; display: block; }
 .hero-badge {
   display: inline-block;
   padding: 0.5rem 1.25rem;
-  border: 1px solid var(--accent-border);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 24px;
   font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--accent);
-  background: var(--accent-dim);
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
   margin-bottom: 2rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 .hero-title {
   font-size: 4rem;
