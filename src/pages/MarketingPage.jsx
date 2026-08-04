@@ -36,7 +36,7 @@ export default function MarketingPage() {
       <nav className="nav-header">
         <div className="nav-logo">
           <Shield size={28} color="#38bdf8" />
-          <span>Lume-V</span>
+          <span>Lume-V / FLA</span>
         </div>
         <ul className="nav-links">
           <li><a href="#product">Product</a></li>
@@ -57,19 +57,17 @@ export default function MarketingPage() {
         '/images/hero_3.png',
         '/images/hero_4.png'
       ]}>
-        <div className="hero-badge fade-in-up">Validation-as-a-Service (VaaS) API</div>
+        <div className="hero-badge fade-in-up">Legacy Governance Substrate & Fractal Ledger</div>
         <h1 className="hero-title fade-in-up" style={{ transitionDelay: '0.1s' }}>
-          Mathematical Certainty for<br />
-          <span style={{ color: '#38bdf8' }}>Legacy Stacks & AI.</span>
+          Deterministic Governance &<br />
+          <span style={{ color: '#38bdf8' }}>Immutable Architecture.</span>
         </h1>
         <p className="hero-subtitle fade-in-up" style={{ transitionDelay: '0.2s' }}>
-          Lume-V is an enterprise-grade deterministic middleware that mathematically secures
-          vulnerable legacy infrastructures and enforces strict safety invariants on AI models —
-          without requiring you to rewrite a single line of your existing codebase.
+          Lume-V (Legacy Governance Substrate) mathematically secures vulnerable infrastructures and enforces strict AI safety invariants. Every deterministic decision is cryptographically anchored to our whitelabel Fractal Ledger Architecture (FLA) for absolute auditability.
         </p>
         <div className="hero-cta-group fade-in-up" style={{ transitionDelay: '0.3s' }}>
-          <button className="hero-cta-primary">Get API Key</button>
-          <button className="hero-cta-secondary">Read Documentation →</button>
+          <Link to="/provision"><button className="hero-cta-primary">Deploy Network</button></Link>
+          <button className="hero-cta-secondary">Architecture Docs →</button>
         </div>
       </HeroSlideshow>
 
@@ -83,14 +81,13 @@ export default function MarketingPage() {
       <section id="product" className="section">
         <div className="section-inner section-split">
           <div className="fade-in-up">
-            <span className="section-badge">WHY LUME-V EXISTS</span>
+            <span className="section-badge">LGS + FLA</span>
             <h2 className="section-title">"Probably Correct" Is Not Good Enough.</h2>
             <p className="section-subtitle">
-              The entire industry is rushing to deploy generative AI models that are inherently
-              nondeterministic. They change their output based on temperature, random seeds, and
-              hidden system prompts that drift over time. You cannot build safe, auditable systems
-              on foundations that shift without warning. Lume-V eliminates this uncertainty with
-              mathematical invariants that guarantee behavioral correctness — every call, every time.
+              The industry is rushing to deploy generative AI models that are inherently
+              nondeterministic. You cannot build safe systems on shifting foundations. 
+              Lume-V eliminates uncertainty with mathematical invariants, while the Fractal Ledger Architecture (FLA) 
+              ensures every decision is permanently written to an immutable, verifiable chain.
             </p>
           </div>
           <div className="fade-in-up" style={{ transitionDelay: '0.2s' }}>
@@ -251,13 +248,13 @@ export default function MarketingPage() {
       <section className="section section-dark">
         <div className="section-inner section-split">
           <div className="fade-in-up">
-            <span className="section-badge">ED25519 CRYPTOGRAPHIC TRUST</span>
-            <h2 className="section-title">Every Decision, Signed and Sealed.</h2>
+            <span className="section-badge">FRACTAL LEDGER ARCHITECTURE</span>
+            <h2 className="section-title">Every Decision, Signed and Anchored.</h2>
             <p className="section-subtitle">
-              Every approved AI decision receives an Ed25519-signed Lume Trust Certificate (LTC v1.0).
+              Every approved AI decision receives an Ed25519-signed Trust Certificate (LTC v1.0).
               The certificate contains a SHA-256 hash of the input, the full validation result, a timestamp,
-              and the governor's digital signature. Certificates are independently verifiable, tamper-evident,
-              and form an immutable chain of trust from input to output.
+              and the governor's digital signature. These certificates are permanently anchored to our
+              Fractal Ledger Architecture (FLA), creating an immutable, distributed chain of trust.
             </p>
           </div>
           <div className="fade-in-up" style={{ transitionDelay: '0.2s' }}>
@@ -480,7 +477,7 @@ export default function MarketingPage() {
                     <li><CheckCircle2 size={16} color="var(--accent)" /> Community Support</li>
                     <li><CheckCircle2 size={16} color="var(--accent)" /> Standard SLA</li>
                   </ul>
-                  <button className="tier-button">Subscribe via Stripe</button>
+                  <Link to="/provision"><button className="tier-button">Deploy Cloud Sandbox</button></Link>
                 </div>
               </div>
               
@@ -497,7 +494,7 @@ export default function MarketingPage() {
                     <li><CheckCircle2 size={16} color="var(--accent)" /> Multi-Agent Arbitration API</li>
                     <li><CheckCircle2 size={16} color="var(--accent)" /> Priority Support + SLA</li>
                   </ul>
-                  <button className="tier-button primary">Subscribe via Stripe</button>
+                  <Link to="/provision"><button className="tier-button primary">Deploy Production Cluster</button></Link>
                 </div>
               </div>
 

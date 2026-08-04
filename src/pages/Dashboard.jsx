@@ -1,27 +1,44 @@
-import React, { useState } from 'react';
-import { Shield, Key, Activity, Settings, Database, AlertTriangle, ArrowRight, Zap, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { Shield, Key, Activity, Settings, Database, CheckCircle2, Server, Layers } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+// Mock Data Generator for tenant-isolated simulation
+const generateTenantData = (tenantId) => {
+  const seed = tenantId.length; 
+  const validCount = 12400 + (seed * 100);
+  const blockedCount = 420 + (seed * 10);
+  const telemetry = [
+    { time: '00:00', validations: 1200 + seed*10, blocked: 42 + seed },
+    { time: '04:00', validations: 900 + seed*10, blocked: 31 + seed },
+    { time: '08:00', validations: 2100 + seed*10, blocked: 89 + seed },
+    { time: '12:00', validations: 4200 + seed*10, blocked: 210 + seed },
+    { time: '16:00', validations: 3800 + seed*10, blocked: 185 + seed },
+    { time: '20:00', validations: 2400 + seed*10, blocked: 95 + seed },
+  ];
+  return { telemetry, totals: { validations: validCount, blocked: blockedCount } };
+};
+
 export default function Dashboard() {
+  const { tenantId } = useParams();
   const [activeTab, setActiveTab] = useState('overview');
-  const [telemetryData, setTelemetryData] = React.useState([]);
-  const [totals, setTotals] = React.useState({ validations: 0, blocked: 0 });
-  const [apiKeys, setApiKeys] = React.useState([]);
+  const [telemetryData, setTelemetryData] = useState([]);
+  const [totals, setTotals] = useState({ validations: 0, blocked: 0 });
+  const [apiKeys, setApiKeys] = useState([]);
 
-  React.useEffect(() => {
-    fetch('http://localhost:4000/v1/dashboard/telemetry')
-      .then(res => res.json())
-      .then(data => {
-        if(data.telemetry) setTelemetryData(data.telemetry);
-        if(data.totals) setTotals(data.totals);
-      }).catch(err => console.error(err));
-
-    fetch('http://localhost:4000/v1/dashboard/keys')
-      .then(res => res.json())
-      .then(data => {
-        if(data.keys) setApiKeys(data.keys);
-      }).catch(err => console.error(err));
-  }, []);
+  useEffect(() => {
+    // Simulate fetching tenant-isolated data
+    const data = generateTenantData(tenantId || 'org_default');
+    setTelemetryData(data.telemetry);
+    setTotals(data.totals);
+    
+    // Simulate provisioned key
+    setApiKeys([{
+      id: 'key_1',
+      keyHash: `lumev_live_${tenantId}_` + Math.random().toString(36).substring(2),
+      createdAt: new Date().toISOString()
+    }]);
+  }, [tenantId]);
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-primary)' }}>
@@ -30,27 +47,35 @@ export default function Dashboard() {
       <div style={{ width: '280px', background: 'rgba(15, 23, 42, 0.8)', borderRight: '1px solid var(--border-color)', padding: '2rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <Shield className="text-accent" size={28} />
-          <span style={{ fontSize: '1.25rem', fontWeight: 800 }}>Lume-V</span>
+          <span style={{ fontSize: '1.25rem', fontWeight: 800 }}>Lume-V Workspace</span>
+        </div>
+        
+        <div style={{ padding: '0.75rem', background: 'rgba(56, 189, 248, 0.05)', border: '1px solid rgba(56, 189, 248, 0.2)', borderRadius: '8px' }}>
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tenant ID</div>
+          <div style={{ fontFamily: 'monospace', color: '#38bdf8', fontWeight: 600 }}>{tenantId || 'org_sandbox'}</div>
+          <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: '#10b981' }}>
+            <Server size={12} /> Dedicated Cloud
+          </div>
         </div>
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <button onClick={() => setActiveTab('overview')} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', background: activeTab === 'overview' ? 'rgba(6, 182, 212, 0.1)' : 'transparent', color: activeTab === 'overview' ? 'var(--text-accent)' : 'var(--text-secondary)', border: 'none', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>
-            <Activity size={18} /> Telemetry
+            <Activity size={18} /> LGS Telemetry
+          </button>
+          <button onClick={() => setActiveTab('fla')} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', background: activeTab === 'fla' ? 'rgba(6, 182, 212, 0.1)' : 'transparent', color: activeTab === 'fla' ? 'var(--text-accent)' : 'var(--text-secondary)', border: 'none', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>
+            <Layers size={18} /> FLA Nodes
           </button>
           <button onClick={() => setActiveTab('keys')} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', background: activeTab === 'keys' ? 'rgba(6, 182, 212, 0.1)' : 'transparent', color: activeTab === 'keys' ? 'var(--text-accent)' : 'var(--text-secondary)', border: 'none', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>
             <Key size={18} /> API Keys
           </button>
           <button onClick={() => setActiveTab('legacy')} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', background: activeTab === 'legacy' ? 'rgba(6, 182, 212, 0.1)' : 'transparent', color: activeTab === 'legacy' ? 'var(--text-accent)' : 'var(--text-secondary)', border: 'none', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>
-            <Database size={18} /> Infrastructure Wrapper
-          </button>
-          <button onClick={() => setActiveTab('settings')} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem', background: activeTab === 'settings' ? 'rgba(6, 182, 212, 0.1)' : 'transparent', color: activeTab === 'settings' ? 'var(--text-accent)' : 'var(--text-secondary)', border: 'none', borderRadius: '8px', cursor: 'pointer', textAlign: 'left', fontWeight: 600 }}>
-            <Settings size={18} /> Settings & Billing
+            <Database size={18} /> Infrastructure Wrappers
           </button>
         </nav>
 
         <div style={{ marginTop: 'auto', padding: '1rem', background: 'rgba(255, 255, 255, 0.03)', borderRadius: '8px', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-          <div style={{ marginBottom: '0.5rem', color: '#10b981', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}><CheckCircle2 size={14} /> Systems Operational</div>
-          Uptime: 99.998%<br/>Latency: 42ms
+          <div style={{ marginBottom: '0.5rem', color: '#10b981', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '4px' }}><CheckCircle2 size={14} /> Ecosystem Synchronized</div>
+          LGS Latency: 3.8ms<br/>FLA Block Time: 1.2s
         </div>
       </div>
 
@@ -59,7 +84,7 @@ export default function Dashboard() {
         
         {activeTab === 'overview' && (
           <div className="animate-fade-in">
-            <h1 style={{ fontSize: '2rem', marginBottom: '2rem', color: 'var(--text-primary)' }}>Deterministic Telemetry</h1>
+            <h1 style={{ fontSize: '2rem', marginBottom: '2rem', color: 'var(--text-primary)' }}>LGS Deterministic Telemetry</h1>
             
             {/* KPI Cards */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
@@ -94,6 +119,36 @@ export default function Dashboard() {
           </div>
         )}
 
+        {activeTab === 'fla' && (
+          <div className="animate-fade-in">
+            <h1 style={{ fontSize: '2rem', marginBottom: '2rem', color: 'var(--text-primary)' }}>Fractal Ledger Architecture (FLA)</h1>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
+              <div className="glass-panel" style={{ padding: '2rem' }}>
+                <h3 style={{ marginBottom: '1rem', color: 'var(--text-primary)' }}>Tenant Ledger Status</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.95rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--text-secondary)' }}>Sync State</span>
+                    <span style={{ color: '#10b981', fontWeight: 600 }}>Fully Synchronized</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--text-secondary)' }}>Block Height</span>
+                    <span style={{ color: 'var(--text-primary)', fontFamily: 'monospace' }}>8,204,912</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: 'var(--text-secondary)' }}>LTC v1.0 Certificates Anchored</span>
+                    <span style={{ color: 'var(--text-primary)', fontFamily: 'monospace' }}>{totals.validations.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Layers size={48} color="#38bdf8" style={{ marginBottom: '1rem' }} />
+                <h3 style={{ marginBottom: '0.5rem' }}>Whitelabel Nodes Active</h3>
+                <p style={{ color: 'var(--text-secondary)', textAlign: 'center' }}>Your dedicated FLA nodes are cryptographically securing all deterministic outputs in real-time.</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {activeTab === 'keys' && (
           <div className="animate-fade-in">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
@@ -106,11 +161,11 @@ export default function Dashboard() {
               {apiKeys.map(key => (
                 <div key={key.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: '1rem', borderBottom: '1px solid var(--border-color)' }}>
                   <div>
-                    <div style={{ fontWeight: 600, fontSize: '1.1rem', marginBottom: '0.25rem' }}>Lume-V Access Key</div>
+                    <div style={{ fontWeight: 600, fontSize: '1.1rem', marginBottom: '0.25rem' }}>Lume-V / FLA Access Key</div>
                     <div style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Created: {new Date(key.createdAt).toLocaleDateString()}</div>
                   </div>
                   <div style={{ background: 'rgba(0,0,0,0.3)', padding: '0.75rem 1rem', borderRadius: '8px', fontFamily: 'monospace', color: 'var(--text-accent)', letterSpacing: '0.05em' }}>
-                    {key.keyHash.substring(0, 16)}*****************
+                    {key.keyHash.substring(0, 24)}...
                   </div>
                 </div>
               ))}
@@ -132,7 +187,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-                Lume-V is currently wrapping all incoming/outgoing traffic to your legacy infrastructure. Nondeterministic and unauthorized data accesses are being mathematically blocked in real-time.
+                Lume-V is currently wrapping all incoming/outgoing traffic to your legacy infrastructure. Nondeterministic and unauthorized data accesses are being mathematically blocked in real-time, and every verified transaction is anchored to your FLA network.
               </p>
               <div style={{ display: 'flex', gap: '1rem' }}>
                 <button style={{ padding: '0.5rem 1rem', background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', cursor: 'pointer' }}>View Reverse Proxy Logs</button>
