@@ -47,10 +47,6 @@ export default function Carousel({ children, cardWidth = 400, cardsToShow = 3 })
 
   return (
     <div className={`carousel-container show-${cardsToShow}`}>
-      <button className="carousel-arrow carousel-arrow-left" onClick={scrollLeft} aria-label="Scroll left">
-        <ChevronLeft size={24} />
-      </button>
-
       <div className="carousel-track" ref={trackRef}>
         {childrenArray.map((child, index) => (
           <div key={index} className="carousel-item" data-index={index}>
@@ -59,26 +55,30 @@ export default function Carousel({ children, cardWidth = 400, cardsToShow = 3 })
         ))}
       </div>
 
-      <button className="carousel-arrow carousel-arrow-right" onClick={scrollRight} aria-label="Scroll right">
-        <ChevronRight size={24} />
-      </button>
-
-      <div className="carousel-dots">
-        {childrenArray.map((_, index) => (
-          <button
-            key={index}
-            className={`carousel-dot ${index === activeIndex ? 'active' : ''}`}
-            aria-label={`Go to slide ${index + 1}`}
-            onClick={() => {
-              if (trackRef.current) {
-                const item = trackRef.current.children[index];
-                if (item) {
-                  item.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      <div className="carousel-nav">
+        <button className="carousel-arrow" onClick={scrollLeft} aria-label="Scroll left">
+          <ChevronLeft size={20} />
+        </button>
+        <div className="carousel-dots">
+          {childrenArray.map((_, index) => (
+            <button
+              key={index}
+              className={`carousel-dot ${index === activeIndex ? 'active' : ''}`}
+              aria-label={`Go to slide ${index + 1}`}
+              onClick={() => {
+                if (trackRef.current) {
+                  const item = trackRef.current.children[index];
+                  if (item) {
+                    item.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                  }
                 }
-              }
-            }}
-          />
-        ))}
+              }}
+            />
+          ))}
+        </div>
+        <button className="carousel-arrow" onClick={scrollRight} aria-label="Scroll right">
+          <ChevronRight size={20} />
+        </button>
       </div>
     </div>
   );
