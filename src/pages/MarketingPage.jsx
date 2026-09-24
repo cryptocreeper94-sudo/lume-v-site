@@ -44,7 +44,6 @@ export default function MarketingPage() {
           <li><a href="#safety">Safety</a></li>
           <li><a href="#integrations">Integrations</a></li>
           <li><a href="#use-cases">Use Cases</a></li>
-          <li><a href="#pricing">Pricing</a></li>
         </ul>
         <div className="nav-actions">
           <Link to="/dashboard"><button>Dashboard</button></Link>
@@ -453,72 +452,6 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      <section id="pricing" className="section section-light">
-        <div className="section-inner">
-          <div className="fade-in-up" style={{ textAlign: 'center' }}>
-            <span className="section-badge">ENTERPRISE PRICING</span>
-            <h2 className="section-title">Infrastructure-Grade Governance.</h2>
-            <p className="section-subtitle" style={{ margin: '0 auto 3rem' }}>
-              Automated provisioning via Stripe. Get your Ed25519-signed API key instantly.
-            </p>
-          </div>
-
-          <div className="fade-in-up" style={{ transitionDelay: '0.2s' }}>
-            <Carousel cardWidth={350}>
-              <div className="pricing-card">
-                <img src="/server.png" alt="Startup Tier" className="feature-card-image" />
-                <div className="feature-card-body">
-                  <h3 className="tier-name">Startup</h3>
-                  <div className="tier-price">$299<span className="tier-period">/mo</span></div>
-                  <ul className="tier-features">
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> 100,000 Validations / month</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Legacy Infrastructure Wrapper</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> AI Safety Invariants API</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Community Support</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Standard SLA</li>
-                  </ul>
-                  <Link to="/provision"><button className="tier-button">Deploy Cloud Sandbox</button></Link>
-                </div>
-              </div>
-              
-              <div className="pricing-card recommended">
-                <div className="tier-badge">RECOMMENDED</div>
-                <img src="/boardroom.png" alt="Professional Tier" className="feature-card-image" />
-                <div className="feature-card-body">
-                  <h3 className="tier-name">Professional</h3>
-                  <div className="tier-price">$899<span className="tier-period">/mo</span></div>
-                  <ul className="tier-features">
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> 1,000,000 Validations / month</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Full Legacy Stack Wrapping</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Ed25519 Trust Certificates</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Multi-Agent Arbitration API</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Priority Support + SLA</li>
-                  </ul>
-                  <Link to="/provision"><button className="tier-button primary">Deploy Production Cluster</button></Link>
-                </div>
-              </div>
-
-              <div className="pricing-card">
-                <img src="/architecture.png" alt="On-Premise Tier" className="feature-card-image" />
-                <div className="feature-card-body">
-                  <h3 className="tier-name">On-Premise</h3>
-                  <div className="tier-price">$5,000+<span className="tier-period">/mo</span></div>
-                  <ul className="tier-features">
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Unlimited Local Validations</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Zero Network Latency</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Private VPC Deployment</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Dedicated Solutions Architect</li>
-                    <li><CheckCircle2 size={16} color="var(--accent)" /> Custom SLA + 24/7 Support</li>
-                  </ul>
-                  <a href="mailto:team@dwsc.io">
-                    <button className="tier-button">Contact Sales</button>
-                  </a>
-                </div>
-              </div>
-            </Carousel>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>
