@@ -36,7 +36,7 @@ export default function MarketingPage() {
       <nav className="nav-header">
         <div className="nav-logo">
           <Shield size={28} color="#ffffff" />
-          <span>Lume-V / FLA</span>
+          <span>Lume-V</span>
         </div>
         <ul className="nav-links">
           <li><a href="#product">Product</a></li>
