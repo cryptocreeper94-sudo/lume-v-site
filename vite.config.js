@@ -8,6 +8,10 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      workbox: {
+        cacheId: 'lume-v-v2',
+        cleanupOutdatedCaches: true
+      },
       manifest: {
         name: 'Lume-V Enterprise',
         short_name: 'Lume-V',
