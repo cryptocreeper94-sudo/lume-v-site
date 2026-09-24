@@ -35,7 +35,7 @@ export default function MarketingPage() {
     <div className="marketing-page">
       <nav className="nav-header">
         <div className="nav-logo">
-          <Shield size={28} color="#38bdf8" />
+          <Shield size={28} color="#ffffff" />
           <span>Lume-V / FLA</span>
         </div>
         <ul className="nav-links">
@@ -60,7 +60,7 @@ export default function MarketingPage() {
         <div className="hero-badge fade-in-up">Legacy Governance Substrate & Fractal Ledger</div>
         <h1 className="hero-title fade-in-up" style={{ transitionDelay: '0.1s' }}>
           Deterministic Governance &<br />
-          <span style={{ color: '#38bdf8' }}>Immutable Architecture.</span>
+          <span style={{ color: '#ffffff' }}>Immutable Architecture.</span>
         </h1>
         <p className="hero-subtitle fade-in-up" style={{ transitionDelay: '0.2s' }}>
           Lume-V (Legacy Governance Substrate) mathematically secures vulnerable infrastructures and enforces strict AI safety invariants. Every deterministic decision is cryptographically anchored to our whitelabel Fractal Ledger Architecture (FLA) for absolute auditability.
@@ -78,7 +78,7 @@ export default function MarketingPage() {
         <AnimatedCounter target={24} label="Demo Decisions" suffix="/24 verified" />
       </div>
 
-      <section id="product" className="section">
+      <section id="product" className="section section-light">
         <div className="section-inner section-split">
           <div className="fade-in-up">
             <span className="section-badge">LGS + FLA</span>
@@ -178,7 +178,7 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      <section id="safety" className="section">
+      <section id="safety" className="section section-light">
         <div className="section-inner">
           <div className="fade-in-up" style={{ textAlign: 'center' }}>
             <span className="section-badge">THE SEVEN INVARIANTS</span>
@@ -284,7 +284,7 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      <section id="integrations" className="section">
+      <section id="integrations" className="section section-light">
         <div className="section-inner">
           <div className="fade-in-up" style={{ textAlign: 'center' }}>
             <span className="section-badge">9 INTEGRATION MODES</span>
@@ -453,7 +453,7 @@ export default function MarketingPage() {
         </div>
       </section>
 
-      <section id="pricing" className="section">
+      <section id="pricing" className="section section-light">
         <div className="section-inner">
           <div className="fade-in-up" style={{ textAlign: 'center' }}>
             <span className="section-badge">ENTERPRISE PRICING</span>

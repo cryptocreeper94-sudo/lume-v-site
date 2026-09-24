@@ -8,9 +8,9 @@
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --text-dim: rgba(255, 255, 255, 0.3);
-  --accent: #38bdf8;
-  --accent-dim: rgba(56, 189, 248, 0.15);
-  --accent-border: rgba(56, 189, 248, 0.3);
+  --accent: #ffffff;
+  --accent-dim: rgba(255, 255, 255, 0.15);
+  --accent-border: rgba(255, 255, 255, 0.3);
   --border-color: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.12);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -101,7 +101,11 @@ img { max-width: 100%; display: block; }
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transition: opacity 1.5s ease-in-out;
+  transition: opacity 1.5s ease-in-out, filter 1.2s ease-in-out;
+  filter: grayscale(100%);
+}
+.hero-slideshow:hover .hero-slide.active {
+  filter: grayscale(0%);
 }
 .hero-slide.active {
   opacity: 1;
@@ -235,6 +239,33 @@ img { max-width: 100%; display: block; }
 .section-dark {
   background: var(--bg-secondary);
 }
+/* Cream Light Sections */
+.section-light {
+  background: #f5f0eb;
+  color: var(--bg-primary);
+}
+.section-light h2, .section-light h3, .section-light h4 { color: var(--bg-primary); }
+.section-light .section-subtitle, .section-light .text-secondary, .section-light .feature-card-desc, .section-light .pipeline-label { color: #444444; }
+.section-light .feature-card { background: #ffffff; border-color: rgba(0,0,0,0.08); }
+.section-light .feature-card:hover { border-color: rgba(0,0,0,0.2); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+.section-light .feature-card-title { color: var(--bg-primary); }
+.section-light .feature-card-image { border-bottom-color: rgba(0,0,0,0.08); }
+.section-light .carousel-arrow { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.1); color: var(--bg-primary); }
+.section-light .carousel-arrow:hover { background: rgba(0,0,0,0.1); }
+.section-light .carousel-dot { background: rgba(0,0,0,0.1); }
+.section-light .carousel-dot.active { background: var(--bg-primary); }
+.section-light .section-badge { color: var(--bg-primary); opacity: 0.7; }
+.section-light .integration-icon-container { background: #fafafa; border-bottom-color: rgba(0,0,0,0.08); }
+.section-light .integration-icon-bg { background: rgba(0,0,0,0.05); }
+.section-light .tier-name, .section-light .tier-price { color: var(--bg-primary); }
+.section-light .tier-period { color: #666666; }
+.section-light .tier-features li { color: #444444; }
+.section-light .pricing-card { background: #ffffff; border-color: rgba(0,0,0,0.08); }
+.section-light .pricing-card:hover { border-color: rgba(0,0,0,0.2); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+.section-light .tier-button { border-color: rgba(0,0,0,0.2); color: var(--bg-primary); }
+.section-light .tier-button:hover { background: rgba(0,0,0,0.05); }
+.section-light .tier-button.primary { background: var(--bg-primary); color: #ffffff; }
+.section-light .tier-button.primary:hover { background: #222222; }
 .section-badge {
   display: inline-block;
   font-size: 0.75rem;
@@ -283,6 +314,12 @@ img { max-width: 100%; display: block; }
   height: 220px;
   object-fit: cover;
   border-bottom: 1px solid var(--border-color);
+  filter: grayscale(100%);
+  transition: filter 1.2s ease-in-out;
+}
+.feature-card:hover .feature-card-image,
+.pricing-card:hover .feature-card-image {
+  filter: grayscale(0%);
 }
 .feature-card-body {
   padding: 1.75rem;
