@@ -9,8 +9,10 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
-        cacheId: 'lume-v-v2',
-        cleanupOutdatedCaches: true
+        cacheId: 'lume-v-v3',
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true
       },
       manifest: {
         name: 'Lume-V Enterprise',
