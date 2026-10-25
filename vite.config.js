@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  base: '/lume-v/',
+  // Relative base: the invariant container serves this one build at both
+  // lumev.tlid.io/ and invariant.tlid.io/lume-v/ (see D:\invariant\build.sh).
+  base: './',
   plugins: [
     react(),
     VitePWA({

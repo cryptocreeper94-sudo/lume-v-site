@@ -12,7 +12,7 @@ export default function Footer() {
             © 2026 DarkWave Studios LLC. All Rights Reserved.
           </div>
           <div style={{ color: "rgba(255,255,255,0.15)", fontSize: "0.75rem" }}>
-            Patent 64/032,339 & 64/047,737 Pending
+            Patent Pending · U.S. Provisional Patent Application No. 64/032,339
           </div>
         </div>
       </div>
